@@ -6,42 +6,57 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tasks', '0001_initial'),
+        ("tasks", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='task',
-            options={'ordering': ['due_date'], 'verbose_name': 'Task', 'verbose_name_plural': 'Tasks'},
+            name="task",
+            options={
+                "ordering": ["due_date"],
+                "verbose_name": "Task",
+                "verbose_name_plural": "Tasks",
+            },
         ),
         migrations.AlterField(
-            model_name='task',
-            name='completed',
-            field=models.BooleanField(default=False, help_text='Indicates if the task is completed or not.'),
+            model_name="task",
+            name="completed",
+            field=models.BooleanField(
+                default=False, help_text="Indicates if the task is completed or not."
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, help_text='The date and time when the task was created.'),
+            model_name="task",
+            name="created_at",
+            field=models.DateTimeField(
+                auto_now_add=True,
+                help_text="The date and time when the task was created.",
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='description',
-            field=models.TextField(help_text='A detailed description of the task.'),
+            model_name="task",
+            name="description",
+            field=models.TextField(help_text="A detailed description of the task."),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='due_date',
-            field=models.DateTimeField(help_text='The due date and time for the task.'),
+            model_name="task",
+            name="due_date",
+            field=models.DateTimeField(help_text="The due date and time for the task."),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='title',
-            field=models.CharField(help_text='The title of the task. Must be under 255 characters.', max_length=255),
+            model_name="task",
+            name="title",
+            field=models.CharField(
+                help_text="The title of the task. Must be under 255 characters.",
+                max_length=255,
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='updated_at',
-            field=models.DateTimeField(auto_now=True, help_text='The date and time when the task was last updated.'),
+            model_name="task",
+            name="updated_at",
+            field=models.DateTimeField(
+                auto_now=True,
+                help_text="The date and time when the task was last updated.",
+            ),
         ),
     ]

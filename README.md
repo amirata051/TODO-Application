@@ -15,6 +15,7 @@ TODO Application is a Django-based project designed to manage tasks efficiently.
 - API documentation with Swagger and ReDoc.
 - Dockerized for easy deployment.
 - Continuous Integration (CI) setup using GitHub Actions.
+- Code linting with `flake8` and formatting with `black`.
 
 ---
 
@@ -94,14 +95,31 @@ The project includes automated tests to ensure functionality.
 
 ---
 
+## Code Quality
+
+The project enforces code quality standards using the following tools:
+
+1. **flake8**: For linting Python code.
+2. **black**: For consistent code formatting.
+
+To check for linting errors:
+   ```bash
+   flake8 .
+   ```
+
+To format the code:
+   ```bash
+   black .
+   ```
+
+---
+
 ## CI/CD
 
 The project uses GitHub Actions for Continuous Integration:
 
 - Automated testing on each commit.
-- Code linting with `flake8`.
-
-No Continuous Deployment (CD) has been configured at this stage.
+- Code linting with `flake8` and formatting validation with `black`.
 
 ---
 
@@ -121,6 +139,8 @@ The project includes a fully documented API available at the following endpoints
 - **drf-yasg**: API documentation.
 - **Docker**: Containerization.
 - **GitHub Actions**: Continuous Integration.
+- **flake8**: Code linting.
+- **black**: Code formatting.
 
 ---
 

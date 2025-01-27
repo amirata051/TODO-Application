@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import status, viewsets, filters
-from django_filters.rest_framework import DjangoFilterBackend 
-from drf_yasg.utils import swagger_auto_schema  
-from drf_yasg import openapi  
+from django_filters.rest_framework import DjangoFilterBackend
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from django.http import HttpResponse
 from .models import Task
 from .serializers import TaskSerializer
@@ -13,7 +13,9 @@ def home_view(request):
     View for the home page.
     Displays a simple welcome message.
     """
-    return HttpResponse("Welcome to the TODO Application API! Use /swagger/ for API docs.")
+    return HttpResponse(
+        "Welcome to the TODO Application API! Use /swagger/ for API docs."
+    )
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -22,14 +24,18 @@ class TaskViewSet(viewsets.ModelViewSet):
     Provides CRUD operations with filtering, searching, and ordering capabilities.
     """
 
-    queryset = Task.objects.all()  
-    serializer_class = TaskSerializer  
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
 
     # Enable filtering, searching, and ordering
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['completed', 'due_date', 'created_at']  
-    search_fields = ['title', 'description']  
-    ordering_fields = ['due_date', 'created_at']  
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    filterset_fields = ["completed", "due_date", "created_at"]
+    search_fields = ["title", "description"]
+    ordering_fields = ["due_date", "created_at"]
 
     @swagger_auto_schema(
         operation_summary="List all tasks",
@@ -56,7 +62,9 @@ class TaskViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
             # Return a 400 response with validation errors
-            return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST
+            )
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 

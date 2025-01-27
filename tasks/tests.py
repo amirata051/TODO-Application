@@ -6,13 +6,14 @@ from .serializers import TaskSerializer
 from datetime import datetime, timedelta
 from django.utils.timezone import make_aware
 
+
 class TaskModelTest(TestCase):
     def setUp(self):
         self.task = Task.objects.create(
             title="Test Task",
             description="This is a test task",
             due_date=make_aware(datetime.now() + timedelta(days=1)),
-            completed=False
+            completed=False,
         )
 
     def test_task_creation(self):
@@ -26,7 +27,7 @@ class TaskModelTest(TestCase):
             "title": "Invalid Task",
             "description": "Due date is in the past",
             "due_date": make_aware(datetime.now() - timedelta(days=1)).isoformat(),
-            "completed": False
+            "completed": False,
         }
         serializer = TaskSerializer(data=data)
         self.assertFalse(serializer.is_valid())
@@ -38,7 +39,7 @@ class TaskModelTest(TestCase):
             "title": "x" * 256,  # Assuming max length is 255
             "description": "Valid description",
             "due_date": make_aware(datetime.now() + timedelta(days=1)).isoformat(),
-            "completed": False
+            "completed": False,
         }
         serializer = TaskSerializer(data=data)
         self.assertFalse(serializer.is_valid())
@@ -52,7 +53,7 @@ class TaskSerializerTest(TestCase):
             "title": "Valid Task",
             "description": "This is valid",
             "due_date": make_aware(datetime.now() + timedelta(days=1)).isoformat(),
-            "completed": False
+            "completed": False,
         }
         serializer = TaskSerializer(data=data)
         self.assertTrue(serializer.is_valid())
@@ -79,13 +80,13 @@ class TaskAPITest(TestCase):
             title="API Task 1",
             description="First test task for API",
             due_date=make_aware(datetime.now() + timedelta(days=1)),
-            completed=False
+            completed=False,
         )
         self.task2 = Task.objects.create(
             title="API Task 2",
             description="Second test task for API",
             due_date=make_aware(datetime.now() + timedelta(days=2)),
-            completed=True
+            completed=True,
         )
 
     def test_get_tasks(self):
@@ -100,7 +101,7 @@ class TaskAPITest(TestCase):
             "title": "New API Task",
             "description": "Testing task creation via API",
             "due_date": make_aware(datetime.now() + timedelta(days=2)).isoformat(),
-            "completed": False
+            "completed": False,
         }
         response = self.client.post("/api/tasks/", data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -115,7 +116,9 @@ class TaskAPITest(TestCase):
     def test_update_task(self):
         """Test updating a task via API"""
         data = {"title": "Updated Title"}
-        response = self.client.patch(f"/api/tasks/{self.task1.id}/", data, format="json")
+        response = self.client.patch(
+            f"/api/tasks/{self.task1.id}/", data, format="json"
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["title"], "Updated Title")
 
