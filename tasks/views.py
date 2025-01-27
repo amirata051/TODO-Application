@@ -3,8 +3,17 @@ from rest_framework import status, viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend  # Import for filtering
 from drf_yasg.utils import swagger_auto_schema  # Import for Swagger documentation
 from drf_yasg import openapi  # Import for schema definitions
+from django.http import HttpResponse
 from .models import Task
 from .serializers import TaskSerializer
+
+
+def home(request):
+    """
+    View for the home page.
+    Displays a simple welcome message.
+    """
+    return HttpResponse("Welcome to the TODO Application API! Use /swagger/ for API docs.")
 
 
 class TaskViewSet(viewsets.ModelViewSet):
