@@ -1,14 +1,14 @@
 from rest_framework.response import Response
 from rest_framework import status, viewsets, filters
-from django_filters.rest_framework import DjangoFilterBackend  # Import for filtering
-from drf_yasg.utils import swagger_auto_schema  # Import for Swagger documentation
-from drf_yasg import openapi  # Import for schema definitions
+from django_filters.rest_framework import DjangoFilterBackend 
+from drf_yasg.utils import swagger_auto_schema  
+from drf_yasg import openapi  
 from django.http import HttpResponse
 from .models import Task
 from .serializers import TaskSerializer
 
 
-def home(request):
+def home_view(request):
     """
     View for the home page.
     Displays a simple welcome message.
@@ -22,14 +22,14 @@ class TaskViewSet(viewsets.ModelViewSet):
     Provides CRUD operations with filtering, searching, and ordering capabilities.
     """
 
-    queryset = Task.objects.all()  # Dataset for the ViewSet
-    serializer_class = TaskSerializer  # Serializer for this ViewSet
+    queryset = Task.objects.all()  
+    serializer_class = TaskSerializer  
 
     # Enable filtering, searching, and ordering
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['completed', 'due_date', 'created_at']  # Fields available for filtering
-    search_fields = ['title', 'description']  # Fields available for searching
-    ordering_fields = ['due_date', 'created_at']  # Fields available for ordering
+    filterset_fields = ['completed', 'due_date', 'created_at']  
+    search_fields = ['title', 'description']  
+    ordering_fields = ['due_date', 'created_at']  
 
     @swagger_auto_schema(
         operation_summary="List all tasks",

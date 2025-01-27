@@ -7,13 +7,12 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = '__all__'
 
-    # Validation for title
+    
     def validate_title(self, value):
         if len(value) < 3:
             raise serializers.ValidationError("Title must be at least 3 characters long.")
         return value
 
-    # Validation for due_date
     def validate_due_date(self, value):
         if value.tzinfo is None:  # If naive, make it timezone-aware
             value = make_aware(value)
